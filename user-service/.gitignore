@@ -1,33 +1,40 @@
-HELP.md
-target/
-.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
-
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### IntelliJ IDEA ###
-.idea
-*.iws
+# IDE Settings (IntelliJ IDEA)
+.idea/
 *.iml
+*.iws
 *.ipr
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+# Build Files (Maven)
+target/
+!**/src/main/**/target/
+!**/src/test/**/target/
+/bin/
+/build/
+out/
 
-### VS Code ###
-.vscode/
+# Dependency Directories
+/node_modules/
+/bower_components/
+
+# Environment Files and Logs
+.env
+application*.properties.example
+*.log
+logs/
+*.txt
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# Maven Wrapper
+# The .mvn folder and related wrapper files can be committed for an encapsulated build setup, 
+# but the generated jar can be ignored.
+# .mvn/wrapper/maven-wrapper.jar 
+# maven-wrapper.jar
+mvnw
+mvnw.cmd
+*.jar
+*.war
+*.class
+.mvn
