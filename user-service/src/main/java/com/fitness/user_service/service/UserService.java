@@ -22,6 +22,7 @@ public class UserService {
 
         User newUser = new User();
 
+        //TODO: Use ModelMapper pattern
         newUser.setEmail(request.getEmail());
         newUser.setPassword(request.getPassword());
         newUser.setFirstName(request.getFirstName());
@@ -31,6 +32,7 @@ public class UserService {
 
         UserResponse userResponse = new UserResponse();
 
+        //TODO: Use ModelMapper pattern
         userResponse.setId(savedUser.getId());
         userResponse.setEmail(savedUser.getEmail());
         userResponse.setPassword(savedUser.getPassword());
@@ -46,6 +48,7 @@ public class UserService {
 
         User retrievedUser = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
 
+        //TODO: Use ModelMapper pattern
         UserResponse userResponse = new UserResponse();
         userResponse.setId(retrievedUser.getId());
         userResponse.setEmail(retrievedUser.getEmail());
