@@ -1,26 +1,19 @@
-package com.fitness.activityservice.model;
+package com.fitness.activityservice.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import com.fitness.activityservice.model.ActivityType;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDateTime;
 import java.util.Map;
 
-@Document(collection = "fitnessact")
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class Activity {
+public class ActivityResponse {
 
-    @Id
+
     private String id;
     private String userId;
     private ActivityType activityType;
@@ -28,11 +21,11 @@ public class Activity {
     private Integer caloriesBurned;
     private LocalDateTime startTime;
 
-    @Field("metrics")
+
     private Map<String,Object> additionalMetrics;
 
-    @CreatedDate
+
     private LocalDateTime createdAt;
-    @LastModifiedDate
+
     private LocalDateTime updatedAt;
 }
