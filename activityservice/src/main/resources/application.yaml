@@ -1,10 +1,6 @@
 spring:
-  application:
-    name: activityservice
-  data:
-    mongogb:
-      uri: mongodb://localhost:27017/fitness_activity_db
-      database: fitness_activity_db
-
+  mongodb:
+    uri: mongodb://localhost:27017/fitness
+    database: fitness
 server:
   port: 0
