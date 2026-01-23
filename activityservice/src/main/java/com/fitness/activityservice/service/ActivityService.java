@@ -19,6 +19,7 @@ import java.util.List;
 public class ActivityService {
 
     private final ActivityRepository activityRepository;
+    private final UserValidationService userValidationService;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -26,17 +27,19 @@ public class ActivityService {
     public ActivityResponse trackActivity(ActivityRequest activityRequest) {
 
 
+        boolean isValidUser = userValidationService.validateUser(activityRequest.getUserId());
 
+        if (!isValidUser) {
+            throw new RuntimeException("Invalid user: " + activityRequest.getUserId());
+        }
 
         Activity activity = modelMapper.map(activityRequest, Activity.class);
-
 
         System.out.println("Activity before save after transformation: " + activity);
 
         Activity savedActivity = activityRepository.save(activity);
 
         System.out.println("Activity after save after transformation: " + savedActivity);
-
 
         return modelMapper.map(savedActivity, ActivityResponse.class);
     }
