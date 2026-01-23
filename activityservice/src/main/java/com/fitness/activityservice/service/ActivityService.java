@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -37,5 +39,22 @@ public class ActivityService {
 
 
         return modelMapper.map(savedActivity, ActivityResponse.class);
+    }
+
+    public List<ActivityResponse> getUserActivities(String userId) {
+
+        List<Activity> userActivities = activityRepository.findByUserId(userId);
+
+        return userActivities.stream()
+                .map(activity -> modelMapper.map(activity, ActivityResponse.class))
+                .toList();
+    }
+
+    public ActivityResponse getActivityById(String activityId) {
+
+        return activityRepository.findById(activityId)
+                .map(activity -> modelMapper.map(activity, ActivityResponse.class))
+                .orElseThrow(() ->
+                        new RuntimeException("Invalid activity.Activity not found with id: " + activityId));
     }
 }
