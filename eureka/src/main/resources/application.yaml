@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: eureka
+
+server:
+  port: 8761
+
+eureka:
+  client:
+    register-with-eureka: false #do not want it to register to itself
+    fetch-registry: false # it will not be fetching other servers
