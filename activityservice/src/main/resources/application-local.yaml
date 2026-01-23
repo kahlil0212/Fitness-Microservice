@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: activity-service
+  mongodb:
+    uri: mongodb://localhost:27017/fitness
+    database: fitness
+  cloud:
+    inetutils:
+      preferred-networks:
+        - 127.0
+      ignored-interfaces:
+        - eth.*
+        - wlan.*
+
+server:
+  port: 8082
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+    preferIpAddress: false
+    instanceId: localhost:activity-service:8082
