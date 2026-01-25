@@ -22,4 +22,4 @@ eureka:
   instance:
     hostname: localhost
     preferIpAddress: false
-    instanceId: localhost:activity-service:8083
+    instanceId: localhost:ai-service:8083
