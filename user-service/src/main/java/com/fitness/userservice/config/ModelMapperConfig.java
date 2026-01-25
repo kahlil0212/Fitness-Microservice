@@ -1,4 +1,4 @@
-package com.fitness.user_service.config;
+package com.fitness.userservice.config;
 
 
 import org.modelmapper.ModelMapper;

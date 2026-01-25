@@ -1,11 +1,10 @@
-package com.fitness.user_service.service;
+package com.fitness.userservice.service;
 
-import com.fitness.user_service.dto.RegisterRequest;
-import com.fitness.user_service.dto.UserResponse;
-import com.fitness.user_service.model.User;
-import com.fitness.user_service.repository.UserRepository;
+import com.fitness.userservice.dto.RegisterRequest;
+import com.fitness.userservice.dto.UserResponse;
+import com.fitness.userservice.model.User;
+import com.fitness.userservice.repository.UserRepository;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;

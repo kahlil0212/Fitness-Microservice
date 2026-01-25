@@ -1,4 +1,4 @@
-package com.fitness.user_service.dto;
+package com.fitness.userservice.dto;
 
 
 

@@ -1,8 +1,8 @@
-package com.fitness.user_service.controller;
+package com.fitness.userservice.controller;
 
-import com.fitness.user_service.dto.RegisterRequest;
-import com.fitness.user_service.dto.UserResponse;
-import com.fitness.user_service.service.UserService;
+import com.fitness.userservice.dto.RegisterRequest;
+import com.fitness.userservice.dto.UserResponse;
+import com.fitness.userservice.service.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
