@@ -1,6 +1,16 @@
 spring:
   application:
     name: ai-service
+  mongodb:
+    uri: mongodb://localhost:27017/fitnessrecommendations
+    database: fitnessrecommendations
+  cloud:
+    inetutils:
+      preferred-networks:
+        - 127.0
+      ignored-interfaces:
+        - eth.*
+        - wlan.*
 
 server:
   port: 8083
