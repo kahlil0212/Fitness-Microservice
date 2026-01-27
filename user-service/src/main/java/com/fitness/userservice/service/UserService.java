@@ -18,8 +18,8 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    @Autowired
-    private ModelMapper modelMapper;
+
+    private final ModelMapper modelMapper;
 
     public UserResponse register(@Valid RegisterRequest request) {
 
