@@ -12,15 +12,12 @@ import java.util.Map;
 
 
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class Activity {
 
 
     private String id;
     private String userId;
-    //private ActivityType activityType;
+    private String activityType;
     private Integer duration;
     private Integer caloriesBurned;
     private LocalDateTime startTime;
