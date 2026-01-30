@@ -1,0 +1,16 @@
+spring:
+  mongodb:
+    database: fitnessrecommendations
+
+rabbitmq:
+  exchange:
+    name: fitness.exchange
+  queue:
+    name: activity.queue #queue where messages will be stored and processed
+  routing:
+    key: activity.tracking # routing key. defines how messages are routed from exchanges to queue
+
+gemini:
+  api:
+    url: ${GEMINI_API_URL}
+    key: ${GEMINI_API_KEY}

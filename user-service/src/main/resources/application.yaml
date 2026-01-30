@@ -1,4 +1,7 @@
 spring:
+  application:
+    name: user-service  # Required for config server to know which config to fetch
   profiles:
-    default: local
-
+    active: local
+  config:
+    import: optional:configserver:http://localhost:8888

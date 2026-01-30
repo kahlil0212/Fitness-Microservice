@@ -1,9 +1,7 @@
 spring:
-  application:
-    name: ai-service
   mongodb:
-    uri: mongodb://localhost:27017/fitnessrecommendations
-    database: fitnessrecommendations
+    uri: mongodb://localhost:27017/fitness
+    database: fitness
   cloud:
     inetutils:
       preferred-networks:
@@ -18,7 +16,7 @@ spring:
     password: guest
 
 server:
-  port: 8083
+  port: 8082
 
 eureka:
   client:
@@ -27,7 +25,7 @@ eureka:
   instance:
     hostname: localhost
     preferIpAddress: false
-    instanceId: localhost:ai-service:8083
+    instanceId: localhost:activity-service:8082
 
 rabbitmq:
   exchange:
@@ -36,8 +34,3 @@ rabbitmq:
     name: activity.queue #queue where messages will be stored and processed
   routing:
     key: activity.tracking # routing key. defines how messages are routed from exchanges to queue
-
-gemini:
-  api:
-    url: ${GEMINI_API_URL}
-    key: ${GEMINI_API_KEY}
