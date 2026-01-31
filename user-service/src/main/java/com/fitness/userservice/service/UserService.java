@@ -24,7 +24,8 @@ public class UserService {
     public UserResponse register(@Valid RegisterRequest request) {
 
         if(userRepository.existsByEmail(request.getEmail())){
-            throw new RuntimeException("Email already exists");
+           User existingUser = userRepository.findByEmail(request.getEmail());
+            return modelMapper.map(existingUser, UserResponse.class);
         }
 
         User newUser = modelMapper.map(request,User.class);
@@ -45,6 +46,8 @@ public class UserService {
     public Boolean existsByUserId(String userId) {
 
         log.info("Calling user exists by userId validation method {} ", userId);
-        return userRepository.existsById(userId);
+        //return userRepository.existsById(userId);
+        return userRepository.existsByKeyCloakId(userId);
     }
+
 }
