@@ -8,16 +8,30 @@ export const authSlice = createSlice({
     userId: localStorage.getItem('userId') || null
   },
   reducers: {
-   setCredentials: (state, action) => {
+    setCredentials: (state, action) => {
+      state.user = action.payload.user;
+      state.token = action.payload.token;
+      state.userId = action.payload.user.sub;
 
-   },
-   logout: (state) => {
+      localStorage.setItem('token', action.payload.token);
+      localStorage.setItem('user', JSON.stringify(action.payload.user));
+      localStorage.setItem('userId', action.payload.user.sub);
+    },
+    logout: (state) => {
+      state.user = null;
+      state.token = null;
+      state.userId = null;
 
-   }
+      localStorage.removeItemItem('token');
+      localStorage.removeItemItem('user');
+      localStorage.removeItemItem('userId');
+
+
+    }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const {setCredentials,logout } = authSlice.actions;
+export const { setCredentials, logout } = authSlice.actions;
 
 export default authSlice.reducer;
