@@ -1,12 +1,16 @@
 import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import { useState } from "react";
+import { addActivity } from "../services/api";
 
 
 const ActivityForm = ({ onActivityAdded }) => {
 
+    const userId = localStorage.getItem('userId');
+
     const [activity, setActivity] = useState(
         {
-            type: "RUNNING",
+            userId,
+            activityType: "RUNNING",
             duration: '',
             caloriesBurned: '',
             additionalMetrics: {}
@@ -16,9 +20,9 @@ const ActivityForm = ({ onActivityAdded }) => {
         try {
             await addActivity(activity);
             onActivityAdded();
-            setActivity({ type: "RUNNING", duration: '', caloriesBurned: '' });
+            setActivity({ userId, activityType: "RUNNING", duration: '', caloriesBurned: '' });
         } catch (error) {
-
+            console.error(error);
         }
     }
 
@@ -27,7 +31,7 @@ const ActivityForm = ({ onActivityAdded }) => {
         <Box component="form" sx={{ mb: 4 }} onSubmit={handleSubmit}>
             <FormControl fullWidth sx={{ mb: 2 }}>
                 <InputLabel>Activity Type</InputLabel>
-                <Select value={activity.type} onChange={(e) => setActivity({ ...activity, type: e.target.value })}>
+                <Select value={activity.activityType} onChange={(e) => setActivity({ ...activity, activityType: e.target.value })}>
                     <MenuItem value="RUNNING">RUNNING</MenuItem>
                     <MenuItem value="WALKING">WALKING</MenuItem>
                     <MenuItem value="CYCLING">CYCLING</MenuItem>
