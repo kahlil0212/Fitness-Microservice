@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useLocation, useParams } from "react-router";
 import { getActivityDetail, } from "../services/api";
 import { Box, Card, CardContent, Divider, Typography } from "@mui/material";
 
@@ -9,6 +9,8 @@ const ActivityDetail = () => {
     const { id } = useParams();
     const [activity, setActivity] = useState(null);
     const [recommendation, setRecommendation] = useState(null);
+
+    const { state } = useLocation();
 
     useEffect(() => {
         const fetchActivityDetail = async () => {
@@ -33,8 +35,8 @@ const ActivityDetail = () => {
                 <CardContent>
                     <Typography variant="h5" gutterBottom>Activity Details</Typography>
                     <Typography >Type: {activity.activityType}</Typography>
-                    <Typography >Duration: {activity.duration}</Typography>
-                    <Typography >Calories Burned: {activity.caloriesBurned}</Typography>
+                    <Typography >Duration: {state.duration}</Typography>
+                    <Typography >Calories Burned: {state.caloriesBurned}</Typography>
                     <Typography >Date: {new Date(activity.createdAt).toLocaleString()}</Typography>
                 </CardContent>
             </Card>

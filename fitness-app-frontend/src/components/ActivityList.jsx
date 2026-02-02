@@ -25,7 +25,7 @@ const ActivityList = () => {
         <Grid container spacing={2}>
             {activities.map(activity => (
                 <Grid key={activity.id} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                    <Card sx={{ cursor: 'pointer' }} onClick={() => navigate(`/activities/${activity.id}`)} >
+                    <Card sx={{ cursor: 'pointer' }} onClick={() => navigate(`/activities/${activity.id}`, { state: activity })} >
                         <CardContent>
                             <Typography variant="h6">{activity.activityType}</Typography>
                             <Typography >Duration: {activity.duration}</Typography>
