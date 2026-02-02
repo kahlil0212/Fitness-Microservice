@@ -2,9 +2,9 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
 import { Provider } from 'react-redux'
-import { store } from './store/store.jsx'
+import { store } from './store/store.js'
 import { AuthProvider } from 'react-oauth2-code-pkce'
-import { authConfig } from './authentication/authConfig.jsx'
+import { authConfig } from './authentication/authConfig.js'
 
 createRoot(document.getElementById('root')).render(
 
