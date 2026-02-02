@@ -90,7 +90,7 @@ The Config Server manages centralized configuration for all services. Configurat
 - User Service: `8081`
 - Activity Service: `8082`
 - AI Service: `8083`
-- Frontend: `3000`
+- Frontend: `5173`
 
 ## 📡 API Endpoints
 
