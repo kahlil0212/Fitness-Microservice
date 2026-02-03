@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
 
     private final ModelMapper modelMapper;
@@ -29,6 +31,10 @@ public class UserService {
         }
 
         User newUser = modelMapper.map(request,User.class);
+
+        //Encrypt password before saving to the db for security
+
+        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
 
         User savedUser = userRepository.save(newUser);
 
