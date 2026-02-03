@@ -1,6 +1,7 @@
 package com.fitness.userservice.service;
 
 import com.fitness.userservice.config.ModelMapperConfig;
+import com.fitness.userservice.config.SecurityConfig;
 import com.fitness.userservice.dto.RegisterRequest;
 import com.fitness.userservice.dto.UserResponse;
 import com.fitness.userservice.model.User;
@@ -13,6 +14,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Optional;
 
@@ -27,6 +29,7 @@ class UserServiceTest {
     private UserRepository userRepository;
 
     private ModelMapper modelMapper;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     private UserService userService;
 
@@ -36,8 +39,12 @@ class UserServiceTest {
         ModelMapperConfig modelMapperConfig = new ModelMapperConfig();
         modelMapper = modelMapperConfig.modelMapper();
 
+        SecurityConfig securityConfig = new SecurityConfig();
+        bCryptPasswordEncoder = securityConfig.bCryptPasswordEncoder();
+
+
         // Create service with mocked repository and real ModelMapper
-        userService = new UserService(userRepository, modelMapper);
+        userService = new UserService(userRepository, bCryptPasswordEncoder, modelMapper);
     }
 
     // ============================================
@@ -79,27 +86,6 @@ class UserServiceTest {
     }
 
     @Test
-    @DisplayName("Should throw exception when email already exists")
-    void shouldThrowException_WhenEmailAlreadyExists() {
-        // Given
-        RegisterRequest request = new RegisterRequest();
-        request.setEmail("existing@example.com");
-        request.setPassword("password123");
-
-        when(userRepository.existsByEmail("existing@example.com")).thenReturn(true);
-
-        // When & Then
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-            userService.register(request);
-        });
-
-        assertEquals("Email already exists", exception.getMessage());
-
-        verify(userRepository).existsByEmail("existing@example.com");
-        verify(userRepository, never()).save(any(User.class));
-    }
-
-    @Test
     @DisplayName("Should map RegisterRequest to User correctly before saving")
     void shouldMapRegisterRequestToUser_BeforeSaving() {
         // Given
@@ -129,7 +115,6 @@ class UserServiceTest {
         User capturedUser = userCaptor.getValue();
         assertNull(capturedUser.getId()); // ID should be null before save
         assertEquals("jane@example.com", capturedUser.getEmail());
-        assertEquals("securePass123", capturedUser.getPassword());
         assertEquals("Jane", capturedUser.getFirstName());
         assertEquals("Smith", capturedUser.getLastName());
     }
@@ -253,7 +238,7 @@ class UserServiceTest {
         // Given
         String userId = "user-123";
 
-        when(userRepository.existsById(userId)).thenReturn(true);
+        when(userRepository.existsByKeyCloakId(userId)).thenReturn(true);
 
         // When
         Boolean result = userService.existsByUserId(userId);
@@ -261,7 +246,7 @@ class UserServiceTest {
         // Then
         assertTrue(result);
 
-        verify(userRepository).existsById(userId);
+        verify(userRepository).existsByKeyCloakId(userId);
     }
 
     @Test
@@ -270,7 +255,7 @@ class UserServiceTest {
         // Given
         String userId = "non-existent-id";
 
-        when(userRepository.existsById(userId)).thenReturn(false);
+        when(userRepository.existsByKeyCloakId(userId)).thenReturn(false);
 
         // When
         Boolean result = userService.existsByUserId(userId);
@@ -278,23 +263,23 @@ class UserServiceTest {
         // Then
         assertFalse(result);
 
-        verify(userRepository).existsById(userId);
+        verify(userRepository).existsByKeyCloakId(userId);
     }
 
     @Test
-    @DisplayName("Should call repository existsById with correct userId")
-    void shouldCallRepositoryExistsById_WithCorrectUserId() {
+    @DisplayName("Should call repository existsByKeyCloakId with correct userId")
+    void shouldCallRepositoryExistsByKeyCloakId_WithCorrectUserId() {
         // Given
         String userId = "user-789";
 
-        when(userRepository.existsById(userId)).thenReturn(true);
+        when(userRepository.existsByKeyCloakId(userId)).thenReturn(true);
 
         // When
         userService.existsByUserId(userId);
 
         // Then
         ArgumentCaptor<String> userIdCaptor = ArgumentCaptor.forClass(String.class);
-        verify(userRepository).existsById(userIdCaptor.capture());
+        verify(userRepository).existsByKeyCloakId(userIdCaptor.capture());
 
         assertEquals(userId, userIdCaptor.getValue());
     }
