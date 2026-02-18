@@ -5,11 +5,13 @@ import { Provider } from 'react-redux'
 import { store } from './store/store.js'
 import { AuthProvider } from 'react-oauth2-code-pkce'
 import { authConfig } from './authentication/authConfig.js'
+import { CssBaseline } from '@mui/material'
 
 createRoot(document.getElementById('root')).render(
 
   <AuthProvider authConfig={authConfig}>
     <Provider store={store}>
+      <CssBaseline />
       <App />
     </Provider>
   </AuthProvider>,
